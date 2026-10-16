@@ -1,4 +1,4 @@
-  /* =========================================================
+/* =========================================================
    COMPLETE ENHANCED STYLESHEET
    Compatible with the existing HTML class names.
    Theme: Navy / Purple / Teal with dark and light modes
@@ -821,6 +821,10 @@ body[data-theme="light"] .dashboard {
 }
 
 /* ---------- FAQ ---------- */
+.faq-section {
+  padding: 5.5rem 0;
+}
+
 .faq-layout {
   display: grid;
   grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
@@ -869,9 +873,16 @@ body[data-theme="light"] .dashboard {
   content: "−";
 }
 
-/* JavaScript can toggle .is-open on the answer or use [hidden]. */
+/* FAQ answers are collapsed until their adjacent button is expanded.
+   Works with the supplied HTML's button + answer structure. */
 .faq-answer {
+  max-height: 0;
   overflow: hidden;
+  transition: max-height 0.28s ease;
+}
+
+.faq-question[aria-expanded="true"] + .faq-answer {
+  max-height: 24rem;
 }
 
 .faq-answer[hidden] {
@@ -1067,7 +1078,8 @@ body[data-theme="light"] .button--secondary {
 }
 
 @media (max-width: 880px) {
-  .section {
+  .section,
+  .faq-section {
     padding: 4.5rem 0;
   }
 
@@ -1119,7 +1131,8 @@ body[data-theme="light"] .button--secondary {
     width: min(100% - 1.5rem, 560px);
   }
 
-  .section {
+  .section,
+  .faq-section {
     padding: 3.5rem 0;
   }
 
