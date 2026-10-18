@@ -1,365 +1,281 @@
+
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="PixelForge Studio creates responsive, accessible, and conversion-focused digital experiences for startups and brands."
-    />
-    <title>PixelForge Studio</title>
-    <link rel="stylesheet" href="styles.css" />
-    <script src="app.js" defer></script>
-  </head>
-  <body>
-    <a class="skip-link" href="#main-content">Skip to main content</a>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="PixelForge Studio creates modern, accessible digital experiences.">
+  <title>PixelForge Studio</title>
 
-    <header class="site-header">
-      <div class="container nav">
-        <a class="brand" href="#top" aria-label="PixelForge Studio home">
-          <span class="brand__mark">P</span>
-          <span>PixelForge</span>
-        </a>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-        <button
-          class="nav__toggle"
-          type="button"
-          aria-expanded="false"
-          aria-controls="main-menu"
-          aria-label="Open navigation menu"
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
+  <header class="site-header">
+    <nav class="navbar container" aria-label="Main navigation">
+      <a class="logo" href="#home">PixelForge<span>.</span></a>
 
-        <nav class="nav__menu" id="main-menu" aria-label="Main navigation">
-          <ul class="nav__links">
-            <li><a href="#services">Services</a></li>
-            <li><a href="#work">Work</a></li>
-            <li><a href="#process">Process</a></li>
-            <li><a href="#reviews">Reviews</a></li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
-          <button class="theme-toggle" type="button" aria-label="Toggle color theme">
-            Light mode
+      <button
+        class="nav__toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="primary-menu"
+        aria-label="Open navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <ul class="nav__menu" id="primary-menu">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#work">Our Work</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+
+      <button class="theme-toggle" type="button" aria-label="Switch to dark theme">
+        <span aria-hidden="true">◐</span>
+      </button>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero section" id="home">
+      <div class="container hero__content">
+        <p class="eyebrow">DESIGN · DEVELOPMENT · INNOVATION</p>
+        <h1>We build digital experiences that <span>inspire.</span></h1>
+        <p class="hero__description">
+          PixelForge Studio transforms creative ideas into accessible,
+          responsive and user-friendly digital products.
+        </p>
+        <div class="hero__actions">
+          <a class="button button--primary" href="#work">Explore Our Work</a>
+          <a class="button button--secondary" href="#contact">Let's Talk</a>
+        </div>
+
+        <div class="hero__visual" aria-hidden="true">
+          <div class="visual-card visual-card--one"></div>
+          <div class="visual-card visual-card--two"></div>
+          <div class="visual-card visual-card--three"></div>
+          <div class="visual-orb"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="services">
+      <div class="container">
+        <p class="eyebrow">WHAT WE DO</p>
+        <h2 class="section-title">Our Services</h2>
+        <p class="section-description">
+          Thoughtful solutions for brands ready to move forward.
+        </p>
+
+        <div class="card-grid">
+          <article class="service-card">
+            <div class="card-icon" aria-hidden="true">✦</div>
+            <h3>Web Design</h3>
+            <p>Clean, engaging interfaces designed around real user needs.</p>
+          </article>
+
+          <article class="service-card">
+            <div class="card-icon" aria-hidden="true">⌘</div>
+            <h3>Development</h3>
+            <p>Responsive websites built with maintainable, modern code.</p>
+          </article>
+
+          <article class="service-card">
+            <div class="card-icon" aria-hidden="true">◎</div>
+            <h3>Brand Identity</h3>
+            <p>Consistent visual systems that help brands stand out.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--muted" id="work">
+      <div class="container">
+        <p class="eyebrow">SELECTED PROJECTS</p>
+        <h2 class="section-title">Our Recent Work</h2>
+        <p class="section-description">
+          A selection of concepts showcasing our design approach.
+        </p>
+
+        <div class="project-grid">
+          <article class="project-card">
+            <div class="project-preview preview--one" aria-hidden="true">
+              <span>01 / DIGITAL</span>
+            </div>
+            <div class="project-info">
+              <h3>Digital Horizons</h3>
+              <p>Web Design · Development</p>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-preview preview--two" aria-hidden="true">
+              <span>02 / BRAND</span>
+            </div>
+            <div class="project-info">
+              <h3>Forma Studio</h3>
+              <p>Branding · Visual Identity</p>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-preview preview--three" aria-hidden="true">
+              <span>03 / PRODUCT</span>
+            </div>
+            <div class="project-info">
+              <h3>Flow Workspace</h3>
+              <p>UI Design · Product Strategy</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="container about-layout">
+        <div>
+          <p class="eyebrow">A LITTLE ABOUT US</p>
+          <h2 class="section-title">Creative thinking. Meaningful results.</h2>
+        </div>
+        <div class="about-copy">
+          <p>
+            We combine thoughtful design and practical technology to create
+            digital experiences that are useful, inclusive and easy to navigate.
+          </p>
+          <p>
+            Our process focuses on clarity, collaboration and continuous
+            improvement at every stage of a project.
+          </p>
+        </div>
+      </div>
+
+      <div class="container stats-grid">
+        <div class="stat">
+          <p class="stat__number" data-target="48">0</p>
+          <p>Projects Delivered</p>
+        </div>
+        <div class="stat">
+          <p class="stat__number" data-target="32">0</p>
+          <p>Happy Clients</p>
+        </div>
+        <div class="stat">
+          <p class="stat__number" data-target="6">0</p>
+          <p>Years of Creativity</p>
+        </div>
+        <div class="stat">
+          <p class="stat__number" data-target="12">0</p>
+          <p>Team Members</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--muted" id="faq">
+      <div class="container faq-container">
+        <p class="eyebrow">NEED TO KNOW</p>
+        <h2 class="section-title">Frequently Asked Questions</h2>
+
+        <div class="faq-list">
+          <article class="faq-item">
+            <h3>
+              <button class="faq-question" id="faq-question-1"
+                type="button" aria-expanded="false" aria-controls="faq-answer-1">
+                What services do you offer?
+                <span aria-hidden="true">+</span>
+              </button>
+            </h3>
+            <div class="faq-answer" id="faq-answer-1"
+              role="region" aria-labelledby="faq-question-1" hidden>
+              <p>We offer web design, website development, UI design and brand identity services.</p>
+            </div>
+          </article>
+
+          <article class="faq-item">
+            <h3>
+              <button class="faq-question" id="faq-question-2"
+                type="button" aria-expanded="false" aria-controls="faq-answer-2">
+                How does a project begin?
+                <span aria-hidden="true">+</span>
+              </button>
+            </h3>
+            <div class="faq-answer" id="faq-answer-2"
+              role="region" aria-labelledby="faq-question-2" hidden>
+              <p>We start by discussing your goals, requirements, timeline and preferred outcomes.</p>
+            </div>
+          </article>
+
+          <article class="faq-item">
+            <h3>
+              <button class="faq-question" id="faq-question-3"
+                type="button" aria-expanded="false" aria-controls="faq-answer-3">
+                Do you create responsive websites?
+                <span aria-hidden="true">+</span>
+              </button>
+            </h3>
+            <div class="faq-answer" id="faq-answer-3"
+              role="region" aria-labelledby="faq-question-3" hidden>
+              <p>Yes. Our layouts are designed to adapt to mobile phones, tablets and desktop screens.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="container contact-layout">
+        <div>
+          <p class="eyebrow">GET IN TOUCH</p>
+          <h2 class="section-title">Have a project in mind?</h2>
+          <p class="section-description">
+            Tell us a little about your idea using the form.
+          </p>
+        </div>
+
+        <form class="contact-form" id="contact-form">
+          <div class="form-group">
+            <label for="name">Your name</label>
+            <input id="name" name="name" type="text"
+              placeholder="Enter your name" autocomplete="name"
+              maxlength="100" required>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email address</label>
+            <input id="email" name="email" type="email"
+              placeholder="you@example.com" autocomplete="email"
+              inputmode="email" maxlength="254" required>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Your message</label>
+            <textarea id="message" name="message" rows="5"
+              placeholder="Tell us about your project..." maxlength="2000"
+              required></textarea>
+          </div>
+
+          <button class="button button--primary" type="submit">
+            Send Message
           </button>
-        </nav>
+          <p class="form-status" id="form-status" aria-live="polite"
+            aria-atomic="true"></p>
+        </form>
       </div>
-    </header>
+    </section>
+  </main>
 
-    <main id="main-content">
-      <section class="hero">
-        <div class="container hero__grid">
-          <div class="hero__content">
-            <p class="eyebrow">Design. Build. Scale.</p>
-            <h1>Creative digital experiences that move your business forward.</h1>
-            <p class="hero__text">
-              We design and develop premium websites and campaigns for teams that
-              want clarity, speed, and measurable growth.
-            </p>
-            <div class="hero__actions">
-              <a class="button button--primary" href="#contact">Book a consult</a>
-              <a class="button button--secondary" href="#work">See our work</a>
-            </div>
-            <ul class="trust-list" aria-label="Key trust indicators">
-              <li>Fast launches</li>
-              <li>Accessible by default</li>
-              <li>Conversion-focused</li>
-            </ul>
-          </div>
-
-          <div class="hero__visual" aria-label="Project dashboard preview">
-            <div class="dashboard">
-              <div class="dashboard__topbar">
-                <span></span>
-                <span></span>
-                <span></span>
-              </div>
-              <div class="dashboard__card dashboard__card--large">
-                <div class="mini-chart">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-                <div class="chart-labels">
-                  <strong>+214%</strong>
-                  <small>Growth in Q3</small>
-                </div>
-              </div>
-              <div class="dashboard__grid">
-                <div class="dashboard__card">
-                  <small>Traffic</small>
-                  <strong data-target="124000">0</strong>
-                  <span>monthly visits</span>
-                </div>
-                <div class="dashboard__card dashboard__card--highlight">
-                  <small>Conversion</small>
-                  <strong data-target="7.8">0</strong>
-                  <span>% uplift</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="stats" aria-label="Key performance metrics">
-        <div class="container stats__grid">
-          <article class="stat-item">
-            <strong data-target="120">0</strong>
-            <span>Projects launched</span>
-          </article>
-          <article class="stat-item">
-            <strong data-target="96">0</strong>
-            <span>Client satisfaction</span>
-          </article>
-          <article class="stat-item">
-            <strong data-target="3.4">0</strong>
-            <span>Average ROI gain</span>
-          </article>
-        </div>
-      </section>
-
-      <section class="section" id="services">
-        <div class="container">
-          <div class="section__heading">
-            <p class="eyebrow">What we do</p>
-            <h2>Built for performance, clarity, and momentum.</h2>
-          </div>
-
-          <div class="service-grid">
-            <article class="service-card">
-              <div class="icon-badge" aria-hidden="true">01</div>
-              <h3>Web design systems</h3>
-              <p>
-                Scalable interfaces with polished interaction design and memorable
-                brand storytelling.
-              </p>
-            </article>
-
-            <article class="service-card">
-              <div class="icon-badge" aria-hidden="true">02</div>
-              <h3>Front-end development</h3>
-              <p>
-                Responsive, flexible code that looks exceptional across desktop,
-                tablet, and mobile devices.
-              </p>
-            </article>
-
-            <article class="service-card">
-              <div class="icon-badge" aria-hidden="true">03</div>
-              <h3>Optimization & testing</h3>
-              <p>
-                Performance tuning, accessibility improvements, and usability
-                validation that reduce friction.
-              </p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section class="section light-section" id="work">
-        <div class="container">
-          <div class="section__heading section__heading--split">
-            <div>
-              <p class="eyebrow">Selected work</p>
-              <h2>Web experiences with measurable business impact.</h2>
-            </div>
-            <a href="#contact" class="text-link">Start a project</a>
-          </div>
-
-          <div class="portfolio-grid">
-            <article class="portfolio-card">
-              <div class="portfolio-card__image image-one" aria-label="Dashboard preview for GrowthPilot"></div>
-              <div class="portfolio-card__content">
-                <span class="tag">SaaS</span>
-                <h3>GrowthPilot</h3>
-                <p>Rebuilt onboarding and dashboard flows to lift activation by 37%.</p>
-              </div>
-            </article>
-
-            <article class="portfolio-card">
-              <div class="portfolio-card__image image-two" aria-label="Storefront preview for Northlane"></div>
-              <div class="portfolio-card__content">
-                <span class="tag">E-commerce</span>
-                <h3>Northlane</h3>
-                <p>Created a higher-converting storefront for premium wellness products.</p>
-              </div>
-            </article>
-
-            <article class="portfolio-card">
-              <div class="portfolio-card__image image-three" aria-label="Agency project preview for Cinder Labs"></div>
-              <div class="portfolio-card__content">
-                <span class="tag">Brand</span>
-                <h3>Cinder Labs</h3>
-                <p>Developed a narrative-led site to support investor storytelling.</p>
-              </div>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" id="process">
-        <div class="container">
-          <div class="section__heading">
-            <p class="eyebrow">Our process</p>
-            <h2>Clear steps, thoughtful decisions, and rapid delivery.</h2>
-          </div>
-
-          <div class="process-grid">
-            <article class="process-step">
-              <span class="step-number">01</span>
-              <h3>Discover</h3>
-              <p>We map goals, audiences, and the growth opportunities worth solving.</p>
-            </article>
-            <article class="process-step">
-              <span class="step-number">02</span>
-              <h3>Design</h3>
-              <p>We shape layouts and flows that feel premium and communicate clearly.</p>
-            </article>
-            <article class="process-step">
-              <span class="step-number">03</span>
-              <h3>Build</h3>
-              <p>We translate approved designs into accessible, responsive interfaces.</p>
-            </article>
-            <article class="process-step">
-              <span class="step-number">04</span>
-              <h3>Improve</h3>
-              <p>We test, optimize, and refine based on real experience and performance.</p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section class="section light-section" id="reviews">
-        <div class="container">
-          <div class="section__heading">
-            <p class="eyebrow">Client feedback</p>
-            <h2>Teams trust us to make the complex feel simple.</h2>
-          </div>
-
-          <div class="testimonial-grid">
-            <blockquote class="testimonial">
-              “PixelForge transformed our outdated site into a polished sales engine.
-              The structure, messaging, and responsiveness were all excellent.”
-              <footer>
-                <strong>Amara Holt</strong>
-                <span>Marketing Director, Northlane</span>
-              </footer>
-            </blockquote>
-            <blockquote class="testimonial">
-              “Their process was organized, clear, and collaborative. We launched with
-              confidence and saw stronger engagement from day one.”
-              <footer>
-                <strong>Julian Park</strong>
-                <span>Founder, GrowthPilot</span>
-              </footer>
-            </blockquote>
-          </div>
-        </div>
-      </section>
-
-      <section class="section faq-section" id="faq">
-        <div class="container faq-layout">
-          <div class="section__heading faq-heading">
-            <p class="eyebrow">Frequently asked</p>
-            <h2>Answers about our process and pricing.</h2>
-          </div>
-
-          <div class="faq-list" aria-label="Frequently asked questions">
-            <div class="faq-item">
-              <button class="faq-question" type="button" aria-expanded="false">
-                What types of projects do you handle?
-              </button>
-              <div class="faq-answer">
-                <p>
-                  We work with product launches, marketing sites, portfolio experiences,
-                  and front-end redesign projects for growing brands and startups.
-                </p>
-              </div>
-            </div>
-
-            <div class="faq-item">
-              <button class="faq-question" type="button" aria-expanded="false">
-                How long does a project usually take?
-              </button>
-              <div class="faq-answer">
-                <p>
-                  Most engagements range from 2 to 6 weeks depending on complexity,
-                  content readiness, and revision cycles.
-                </p>
-              </div>
-            </div>
-
-            <div class="faq-item">
-              <button class="faq-question" type="button" aria-expanded="false">
-                Do you focus on responsive and accessible design?
-              </button>
-              <div class="faq-answer">
-                <p>
-                  Yes. We design for multi-device performance, semantic HTML structure,
-                  strong contrast, and keyboard-friendly interactions.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="cta-band" id="contact">
-        <div class="container cta-band__inner">
-          <div>
-            <p class="eyebrow">Let’s build something better</p>
-            <h2>Need a website that looks sharp and performs even sharper?</h2>
-          </div>
-          <a href="mailto:hello@pixelforge.studio" class="button button--primary">hello@pixelforge.studio</a>
-        </div>
-      </section>
-
-      <section class="section contact-section">
-        <div class="container contact-grid">
-          <div class="contact-copy">
-            <p class="eyebrow">Book a discovery call</p>
-            <h2>Tell us what you’re building.</h2>
-            <p>
-              Share your vision, timeline, and goals. We’ll propose a plan that keeps
-              delivery smooth and your team aligned.
-            </p>
-          </div>
-
-          <form class="contact-form" novalidate>
-            <label>
-              Full name
-              <input type="text" name="name" placeholder="Your name" aria-label="Full name" required />
-            </label>
-            <label>
-              Email address
-              <input type="email" name="email" placeholder="you@example.com" aria-label="Email address" required />
-            </label>
-            <label>
-              Project details
-              <textarea name="message" rows="5" placeholder="Tell us about your goals and timeline" aria-label="Project details" required></textarea>
-            </label>
-            <button type="submit" class="button button--primary">Send inquiry</button>
-            <p class="form-message" id="form-message" aria-live="polite"></p>
-          </form>
-        </div>
-      </section>
-    </main>
-
-    <footer class="site-footer">
-      <div class="container footer-inner">
-        <p>© 2026 PixelForge Studio</p>
-        <div class="footer-links" aria-label="Social links">
-          <a href="#top">Home</a>
-          <a href="#services">Services</a>
-          <a href="#contact">Contact</a>
-        </div>
-      </div>
-    </footer>
-  </body>
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <a class="logo" href="#home">PixelForge<span>.</span></a>
+      <p>© <span id="current-year"></span> PixelForge Studio. All rights reserved.</p>
+      <a href="#home">Back to top ↑</a>
+    </div>
+  </footer>
+</body>
 </html>
+
+        
