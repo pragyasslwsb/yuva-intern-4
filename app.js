@@ -1,301 +1,292 @@
 
-(() => {
-  'use strict';
+'use strict';
 
-  // ==========================================
-  // PixelForge Studio — Interactive UI
-  // ==========================================
+/* =========================================================
+   PixelForge Studio
+   Accessible and Maintainable JavaScript
+   ========================================================= */
 
-  const body = document.body;
-  const menuButton = document.querySelector('.nav__toggle');
-  const navMenu = document.querySelector('.nav__menu');
-  const themeButton = document.querySelector('.theme-toggle');
-  const faqButtons = document.querySelectorAll('.faq-question');
-  const counters = document.querySelectorAll('[data-target]');
-  const form = document.querySelector('.contact-form');
-  const formMessage = document.getElementById('form-message');
+document.addEventListener('DOMContentLoaded', () => {
+    /* -----------------------------------------------------
+       1. Select HTML Elements
+    ----------------------------------------------------- */
 
-  const prefersReducedMotion =
-    window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
+    const body = document.body;
 
-  // ==========================================
-  // 1. Theme Toggle
-  // ==========================================
+    const menuButton = document.querySelector('.nav__toggle');
+    const navMenu = document.querySelector('.nav__menu');
+    const navLinks = document.querySelectorAll('.nav__link');
 
-  const setTheme = (theme, persist = true) => {
-    const selectedTheme = theme === 'light' ? 'light' : 'dark';
+    const themeButton = document.querySelector('.theme-toggle');
 
-    body.setAttribute('data-theme', selectedTheme);
+    const faqButtons = document.querySelectorAll('.faq__button');
+
+    const contactForm = document.querySelector('#contact-form');
+    const formStatus = document.querySelector('#form-status');
+
+    const currentYear = document.querySelector('#current-year');
+
+
+    /* -----------------------------------------------------
+       2. Mobile Navigation
+    ----------------------------------------------------- */
+
+    if (menuButton && navMenu) {
+        const setMenuState = (isOpen) => {
+            menuButton.setAttribute('aria-expanded', String(isOpen));
+
+            menuButton.setAttribute(
+                'aria-label',
+                isOpen ? 'Close navigation menu' : 'Open navigation menu'
+            );
+
+            navMenu.classList.toggle('is-open', isOpen);
+        };
+
+        menuButton.addEventListener('click', () => {
+            const isExpanded =
+                menuButton.getAttribute('aria-expanded') === 'true';
+
+            setMenuState(!isExpanded);
+        });
+
+        // Close the menu after a navigation link is selected.
+        navLinks.forEach((link) => {
+            link.addEventListener('click', () => {
+                setMenuState(false);
+            });
+        });
+
+        // Close the menu when Escape is pressed.
+        document.addEventListener('keydown', (event) => {
+            if (
+                event.key === 'Escape' &&
+                menuButton.getAttribute('aria-expanded') === 'true'
+            ) {
+                setMenuState(false);
+                menuButton.focus();
+            }
+        });
+
+        // Close the mobile menu when clicking outside it.
+        document.addEventListener('click', (event) => {
+            const clickedInsideMenu = navMenu.contains(event.target);
+            const clickedMenuButton = menuButton.contains(event.target);
+
+            if (!clickedInsideMenu && !clickedMenuButton) {
+                setMenuState(false);
+            }
+        });
+
+        // Reset the mobile menu when returning to desktop layout.
+        const desktopQuery = window.matchMedia('(min-width: 901px)');
+
+        const handleDesktopLayout = (event) => {
+            if (event.matches) {
+                setMenuState(false);
+            }
+        };
+
+        if (desktopQuery.addEventListener) {
+            desktopQuery.addEventListener('change', handleDesktopLayout);
+        } else {
+            // Compatibility with older browsers.
+            desktopQuery.addListener(handleDesktopLayout);
+        }
+    }
+
+
+    /* -----------------------------------------------------
+       3. Theme Toggle
+    ----------------------------------------------------- */
 
     if (themeButton) {
-      themeButton.textContent =
-        selectedTheme === 'light' ? 'Dark mode' : 'Light mode';
+        const updateThemeButton = () => {
+            const isLightTheme = body.classList.contains('light-theme');
 
-      themeButton.setAttribute(
-        'aria-label',
-        `Switch to ${selectedTheme === 'light' ? 'dark' : 'light'} mode`
-      );
-    }
+            themeButton.setAttribute(
+                'aria-pressed',
+                String(isLightTheme)
+            );
 
-    if (persist) {
-      try {
-        localStorage.setItem('site-theme', selectedTheme);
-      } catch (error) {
-        // The theme still works when browser storage is unavailable.
-      }
-    }
-  };
+            themeButton.setAttribute(
+                'aria-label',
+                isLightTheme
+                    ? 'Switch to dark theme'
+                    : 'Switch to light theme'
+            );
 
-  let savedTheme = null;
+            const label = themeButton.querySelector('.theme-toggle__text');
 
-  try {
-    savedTheme = localStorage.getItem('site-theme');
-  } catch (error) {
-    // Use the default theme if browser storage is unavailable.
-  }
+            if (label) {
+                label.textContent = isLightTheme
+                    ? 'Light theme'
+                    : 'Dark theme';
+            }
+        };
 
-  setTheme(savedTheme || 'dark', false);
-
-  themeButton?.addEventListener('click', () => {
-    const currentTheme = body.getAttribute('data-theme');
-    setTheme(currentTheme === 'light' ? 'dark' : 'light');
-  });
-
-  // ==========================================
-  // 2. Mobile Navigation
-  // ==========================================
-
-  const closeMenu = () => {
-    if (!menuButton || !navMenu) return;
-
-    navMenu.classList.remove('is-open');
-    menuButton.setAttribute('aria-expanded', 'false');
-  };
-
-  if (menuButton && navMenu) {
-    menuButton.setAttribute('aria-expanded', 'false');
-
-    menuButton.addEventListener('click', () => {
-      const isOpen = navMenu.classList.toggle('is-open');
-      menuButton.setAttribute('aria-expanded', String(isOpen));
-    });
-
-    // Close the menu after selecting a navigation link.
-    navMenu.querySelectorAll('a').forEach((link) => {
-      link.addEventListener('click', closeMenu);
-    });
-
-    // Allow keyboard users to close the menu with Escape.
-    document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape') {
-        closeMenu();
-      }
-    });
-
-    // Keep the menu state sensible when switching to desktop layout.
-    window.addEventListener('resize', () => {
-      if (window.innerWidth > 768) {
-        closeMenu();
-      }
-    });
-  }
-
-  // ==========================================
-  // 3. FAQ Accordion
-  // ==========================================
-
-  const getAnswer = (button) => {
-    const answer = button.nextElementSibling;
-
-    return answer?.classList.contains('faq-answer') ? answer : null;
-  };
-
-  const closeFAQ = (button) => {
-    const answer = getAnswer(button);
-
-    button.setAttribute('aria-expanded', 'false');
-
-    if (answer) {
-      answer.style.maxHeight = '0px';
-    }
-  };
-
-  const openFAQ = (button) => {
-    const answer = getAnswer(button);
-
-    button.setAttribute('aria-expanded', 'true');
-
-    if (answer) {
-      answer.style.maxHeight = `${answer.scrollHeight}px`;
-    }
-  };
-
-  faqButtons.forEach((button) => {
-    const answer = getAnswer(button);
-
-    if (!answer) return;
-
-    const initiallyOpen = button.getAttribute('aria-expanded') === 'true';
-
-    button.setAttribute('aria-expanded', String(initiallyOpen));
-    answer.style.maxHeight = initiallyOpen
-      ? `${answer.scrollHeight}px`
-      : '0px';
-
-    button.addEventListener('click', () => {
-      const isOpen = button.getAttribute('aria-expanded') === 'true';
-
-      // Close all FAQ items first.
-      faqButtons.forEach(closeFAQ);
-
-      // Open the selected item only if it was previously closed.
-      if (!isOpen) {
-        openFAQ(button);
-      }
-    });
-  });
-
-  // Recalculate expanded answers when the layout changes.
-  window.addEventListener('resize', () => {
-    faqButtons.forEach((button) => {
-      if (button.getAttribute('aria-expanded') === 'true') {
-        const answer = getAnswer(button);
-
-        if (answer) {
-          answer.style.maxHeight = `${answer.scrollHeight}px`;
-        }
-      }
-    });
-  });
-
-  // ==========================================
-  // 4. Animated Statistics Counters
-  // ==========================================
-
-  const animateCounter = (element) => {
-    const target = Number(element.dataset.target);
-
-    if (!Number.isFinite(target)) return;
-
-    // Preserve a suffix such as "%" from the original markup,
-    // or specify one explicitly using data-suffix.
-    const originalText = element.textContent.trim();
-    const suffixMatch = originalText.match(/[%+]$/);
-    const suffix = element.dataset.suffix ?? suffixMatch?.[0] ?? '';
-
-    const decimalPlaces = Math.min(
-      (String(target).split('.')[1] || '').length,
-      4
-    );
-
-    if (prefersReducedMotion) {
-      element.textContent = `${target.toFixed(decimalPlaces)}${suffix}`;
-      return;
-    }
-
-    const duration = 1200;
-    const startTime = performance.now();
-
-    const step = (currentTime) => {
-      const progress = Math.min((currentTime - startTime) / duration, 1);
-
-      // Ease-out animation.
-      const easedProgress = 1 - Math.pow(1 - progress, 3);
-      const currentValue = target * easedProgress;
-
-      element.textContent =
-        `${currentValue.toFixed(decimalPlaces)}${suffix}`;
-
-      if (progress < 1) {
-        requestAnimationFrame(step);
-      } else {
-        element.textContent = `${target.toFixed(decimalPlaces)}${suffix}`;
-      }
-    };
-
-    requestAnimationFrame(step);
-  };
-
-  if ('IntersectionObserver' in window) {
-    const counterObserver = new IntersectionObserver(
-      (entries, observer) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            animateCounter(entry.target);
-            observer.unobserve(entry.target);
-          }
+        themeButton.addEventListener('click', () => {
+            body.classList.toggle('light-theme');
+            updateThemeButton();
         });
-      },
-      { threshold: 0.25 }
-    );
 
-    counters.forEach((counter) => {
-      const target = Number(counter.dataset.target);
+        updateThemeButton();
+    }
 
-      if (!Number.isFinite(target)) return;
 
-      const originalText = counter.textContent.trim();
-      const suffixMatch = originalText.match(/[%+]$/);
-      const suffix = counter.dataset.suffix ?? suffixMatch?.[0] ?? '';
+    /* -----------------------------------------------------
+       4. Accessible FAQ Accordion
+    ----------------------------------------------------- */
 
-      counter.textContent = `0${suffix}`;
-      counterObserver.observe(counter);
+    faqButtons.forEach((button) => {
+        const answerId = button.getAttribute('aria-controls');
+        const answer = answerId
+            ? document.getElementById(answerId)
+            : null;
+
+        if (!answer) {
+            return;
+        }
+
+        // Synchronize initial HTML state.
+        const initiallyExpanded =
+            button.getAttribute('aria-expanded') === 'true';
+
+        answer.hidden = !initiallyExpanded;
+
+        button.addEventListener('click', () => {
+            const isExpanded =
+                button.getAttribute('aria-expanded') === 'true';
+
+            const shouldExpand = !isExpanded;
+
+            button.setAttribute(
+                'aria-expanded',
+                String(shouldExpand)
+            );
+
+            answer.hidden = !shouldExpand;
+        });
     });
-  } else {
-    // Fallback for browsers without IntersectionObserver.
-    counters.forEach(animateCounter);
-  }
 
-  // ==========================================
-  // 5. Contact Form Validation
-  // ==========================================
 
-  const showFormMessage = (message, type) => {
-    if (!formMessage) return;
+    /* -----------------------------------------------------
+       5. Contact Form Validation and Feedback
+    ----------------------------------------------------- */
 
-    formMessage.textContent = message;
-    formMessage.setAttribute('role', type === 'error' ? 'alert' : 'status');
-    formMessage.setAttribute('aria-live', 'polite');
+    if (contactForm && formStatus) {
+        contactForm.addEventListener('submit', (event) => {
+            event.preventDefault();
 
-    formMessage.style.color =
-      type === 'error' ? '#f87171' : '#34d399';
-  };
+            // Use the browser's built-in validation.
+            if (!contactForm.checkValidity()) {
+                contactForm.reportValidity();
 
-  form?.addEventListener('submit', (event) => {
-    event.preventDefault();
+                formStatus.textContent =
+                    'Please complete all required fields correctly.';
 
-    const formData = new FormData(form);
+                return;
+            }
 
-    const name = String(formData.get('name') || '').trim();
-    const email = String(formData.get('email') || '').trim();
-    const message = String(formData.get('message') || '').trim();
+            const formData = new FormData(contactForm);
 
-    if (!name || !email || !message) {
-      showFormMessage(
-        'Please complete all required fields before submitting.',
-        'error'
-      );
-      return;
+            const name = String(formData.get('name') || '').trim();
+
+            if (!name) {
+                formStatus.textContent =
+                    'Please enter your name.';
+
+                contactForm.querySelector('[name="name"]')?.focus();
+
+                return;
+            }
+
+            /*
+             * This is a frontend demonstration only.
+             * No information is sent to a server.
+             */
+
+            formStatus.textContent =
+                'Your form is valid. This demo does not send messages. ' +
+                'Connect a backend or form service to enable submission.';
+        });
+
+        // Clear stale feedback when the user edits the form.
+        contactForm.addEventListener('input', () => {
+            formStatus.textContent = '';
+        });
     }
 
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (!emailPattern.test(email)) {
-      showFormMessage(
-        'Please enter a valid email address.',
-        'error'
-      );
-      return;
+    /* -----------------------------------------------------
+       6. Automatic Footer Year
+    ----------------------------------------------------- */
+
+    if (currentYear) {
+        currentYear.textContent = String(new Date().getFullYear());
     }
 
-    // This static demo validates the form but does not send data
-    // to a server. Connect a backend or form service to enable delivery.
-    showFormMessage(
-      'Your details passed validation. This demo does not send messages yet.',
-      'success'
+
+    /* -----------------------------------------------------
+       7. Smooth In-Page Navigation Fallback
+    ----------------------------------------------------- */
+
+    // Native anchor navigation remains functional without JavaScript.
+    // CSS controls smooth scrolling when reduced motion is not enabled.
+    const reduceMotion = window.matchMedia(
+        '(prefers-reduced-motion: reduce)'
     );
 
-    form.reset();
-  });
+    document.querySelectorAll('a[href^="#"]').forEach((link) => {
+        link.addEventListener('click', (event) => {
+            const href = link.getAttribute('href');
 
-})();
+            if (!href || href === '#') {
+                return;
+            }
+
+            let target;
+
+            try {
+                target = document.querySelector(href);
+            } catch {
+                // Ignore invalid selectors.
+                return;
+            }
+
+            if (!target) {
+                return;
+            }
+
+            // Preserve native browser navigation and history.
+            // This handler intentionally does not override anchor behavior.
+            if (reduceMotion.matches) {
+                target.style.scrollBehavior = 'auto';
+            }
+        });
+    });
+
+
+    /* -----------------------------------------------------
+       8. Basic Runtime Diagnostics
+    ----------------------------------------------------- */
+
+    // Warn about missing interactive elements during development.
+    if (!menuButton || !navMenu) {
+        console.warn(
+            'PixelForge Studio: Navigation elements were not found.'
+        );
+    }
+
+    if (!themeButton) {
+        console.warn(
+            'PixelForge Studio: Theme toggle was not found.'
+        );
+    }
+
+    if (faqButtons.length === 0) {
+        console.info(
+            'PixelForge Studio: No FAQ buttons were found.'
+        );
+    }
+});
